@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Twitter Tweet Filter",
-  "version": "1.0",
-  "description": "Filter tweets based on custom rules",
+  "name": "Twerp",
+  "version": "0.0.0.1",
+  "description": "Filter tweets with an LLM",
   "permissions": ["scripting", "storage", "tabs"],
   "host_permissions": ["https://x.com/*", "https://api.anthropic.com/"],
   "background": {
@@ -16,5 +16,11 @@
   ],
   "action": {
     "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   }
 }

@@ -22,9 +22,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("data :>> ", data);
-        sendResponse({
-          filtered: data.content[0].text.toLowerCase().includes("yes"),
-        });
+        const filtered = data.content[0].text.toLowerCase().includes("yes");
+
+        // Broadcast the filter decision to all listeners
+        if (filtered) {
+          chrome.runtime.sendMessage({
+            type: "filterUpdate",
+            tweet: request.tweetText,
+            user: request.userHandle,
+            filtered: true,
+          });
+        }
+
+        sendResponse({ filtered });
       })
       .catch((error) => {
         console.error("API error:", error);

@@ -19,13 +19,18 @@ chrome.storage.onChanged.addListener((changes) => {
   if (changes.apiKey) FILTER_RULES.apiKey = changes.apiKey.newValue;
   if (changes.filterPrompt)
     FILTER_RULES.filterPrompt = changes.filterPrompt.newValue;
-  if (changes.filterEnabled)
+  if (changes.filterEnabled) {
     FILTER_RULES.enabled = changes.filterEnabled.newValue;
+    if (!FILTER_RULES.enabled) {
+      FILTER_RULES.filteredTweets.clear(); // Clear filtered tweets when disabled
+      showAllTweets();
+    } else {
+      filterTweets();
+    }
+    return;
+  }
 
-  // Show all tweets if filtering is disabled
-  if (!FILTER_RULES.enabled) {
-    showAllTweets();
-  } else {
+  if (FILTER_RULES.enabled) {
     filterTweets();
   }
 });
@@ -91,9 +96,27 @@ async function filterTweets() {
   const tweets = document.querySelectorAll('[data-testid="tweet"]');
   console.log("Found tweets:", tweets.length);
 
+  // Create a set of currently filtered tweet texts
+  const currentlyFiltered = new Set();
+
   for (const tweet of tweets) {
+    const tweetText = tweet.textContent;
     if (await shouldFilterTweet(tweet)) {
       tweet.style.display = "none";
+      currentlyFiltered.add(tweetText);
+    } else {
+      tweet.style.display = "";
+      // Remove from filtered tweets if it was previously filtered
+      if (FILTER_RULES.filteredTweets.has(tweetText)) {
+        FILTER_RULES.filteredTweets.delete(tweetText);
+      }
+    }
+  }
+
+  // Remove tweets that are no longer on the page
+  for (const [tweetText] of FILTER_RULES.filteredTweets) {
+    if (!currentlyFiltered.has(tweetText)) {
+      FILTER_RULES.filteredTweets.delete(tweetText);
     }
   }
 }
