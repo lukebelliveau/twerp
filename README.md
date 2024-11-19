@@ -1,6 +1,6 @@
 # Twerp
 
-Filter tweets with an LLM. Currently works with Claude only.
+Filter tweets with an LLM. Currently works with Claude only. Mostly written by Claude.
 
 I haven't published this on the Chrome store, to run locally:
 
