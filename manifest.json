@@ -3,7 +3,7 @@
   "name": "Twitter Tweet Filter",
   "version": "1.0",
   "description": "Filter tweets based on custom rules",
-  "permissions": ["scripting", "storage"],
+  "permissions": ["scripting", "storage", "tabs"],
   "host_permissions": ["https://x.com/*", "https://api.anthropic.com/"],
   "background": {
     "service_worker": "background.js"

@@ -9,6 +9,47 @@
       .setting-row {
         margin-bottom: 10px;
       }
+      #filtered-tweets {
+        margin-top: 15px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+      }
+      .filtered-tweet {
+        margin-bottom: 8px;
+        padding: 8px;
+        background: #f5f5f5;
+        border-radius: 4px;
+      }
+      .tweet-user {
+        font-weight: bold;
+        color: #333;
+      }
+      .tweet-text {
+        color: #666;
+        font-size: 0.9em;
+      }
+      .tweet-time {
+        color: #999;
+        font-size: 0.8em;
+      }
+      .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+      .panel-content {
+        max-height: 300px;
+        overflow-y: auto;
+        display: none;
+      }
+      .panel-content.show {
+        display: block;
+      }
+      .toggle-icon {
+        font-size: 12px;
+        color: #666;
+      }
     </style>
   </head>
   <body>
@@ -29,6 +70,14 @@ Determine if this tweet should be hidden. Hide tweets that are spam, promotional
       >
     </div>
     <button id="save-settings">Save Settings</button>
+
+    <div id="filtered-tweets">
+      <div class="panel-header">
+        <h3>Filtered Tweets</h3>
+        <span class="toggle-icon">&blacktriangledown;</span>
+      </div>
+      <div class="panel-content" id="filtered-tweets-content"></div>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

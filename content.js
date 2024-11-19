@@ -2,6 +2,7 @@ const FILTER_RULES = {
   apiKey: "",
   filterPrompt: "",
   enabled: true,
+  filteredTweets: new Map(),
 };
 
 // Update storage listener
@@ -60,12 +61,31 @@ async function shouldFilterTweet(tweetElement) {
       userHandle,
     });
 
+    if (response.filtered) {
+      FILTER_RULES.filteredTweets.set(tweetText, {
+        text: tweetText,
+        user: userHandle,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     return response.filtered;
   } catch (error) {
     console.error("LLM filtering error:", error);
     return false;
   }
 }
+
+function getFilteredTweets() {
+  return Array.from(FILTER_RULES.filteredTweets.values());
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === "getFilteredTweets") {
+    sendResponse({ tweets: getFilteredTweets() });
+  }
+  return true;
+});
 
 async function filterTweets() {
   const tweets = document.querySelectorAll('[data-testid="tweet"]');
