@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter Tweet Filter",
+  "version": "1.0",
+  "description": "Filter tweets based on custom rules",
+  "permissions": ["scripting", "storage"],
+  "host_permissions": ["https://x.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
