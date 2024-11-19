@@ -4,7 +4,10 @@
   "version": "1.0",
   "description": "Filter tweets based on custom rules",
   "permissions": ["scripting", "storage"],
-  "host_permissions": ["https://x.com/*"],
+  "host_permissions": ["https://x.com/*", "https://api.anthropic.com/"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://x.com/*"],

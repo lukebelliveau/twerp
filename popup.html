@@ -6,22 +6,29 @@
         width: 300px;
         padding: 10px;
       }
-      #keyword-list {
-        margin: 10px 0;
-      }
-      .keyword-item {
-        display: flex;
-        justify-content: space-between;
-        margin: 5px 0;
+      .setting-row {
+        margin-bottom: 10px;
       }
     </style>
   </head>
   <body>
-    <div>
-      <input type="text" id="new-keyword" placeholder="Enter keyword" />
-      <button id="add-keyword">Add</button>
+    <div class="setting-row">
+      <label for="api-key">API Key:</label>
+      <input type="password" id="api-key" />
     </div>
-    <div id="keyword-list"></div>
+    <div class="setting-row">
+      <label>
+        <input type="checkbox" id="filter-enabled" checked />
+        Enable Filtering
+      </label>
+    </div>
+    <div class="setting-row">
+      <label for="filter-prompt">Filter Prompt:</label>
+      <textarea id="filter-prompt" rows="4" style="width: 100%">
+Determine if this tweet should be hidden. Hide tweets that are spam, promotional, or low quality. Consider the tweet's content and the user posting it.</textarea
+      >
+    </div>
+    <button id="save-settings">Save Settings</button>
     <script src="popup.js"></script>
   </body>
 </html>
